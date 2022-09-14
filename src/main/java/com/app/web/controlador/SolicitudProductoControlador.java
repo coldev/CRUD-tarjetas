@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.app.web.entidad.SolicitudProducto;
+import com.app.web.entidad.InicioSesion;
 import com.app.web.servicio.SolicitudProductoServicio;
 
 @Controller
@@ -27,8 +28,20 @@ public class SolicitudProductoControlador {
         
         
         @GetMapping({ "/login", "/login" })
-	public String paginaLogin(Model modelo) {				 
+	public String paginaLogin(Model modelo) {            
+             InicioSesion solicitud = new InicioSesion();
+		modelo.addAttribute("iniciosesion", solicitud);
                 return "inicio_sesion";
+	}
+        
+        @PostMapping("/login")
+	public String guardarLogin(@ModelAttribute("iniciosesion") InicioSesion solicitud) {
+		
+             if (solicitud.getUsuario().equalsIgnoreCase( "admin") &&
+                    solicitud.getClave().equalsIgnoreCase( "123")    )                
+		return "redirect:/menu";
+             else
+                return "redirect:/login";
 	}
   
         @GetMapping({ "/contacto", "/contacto" })
@@ -84,5 +97,16 @@ public class SolicitudProductoControlador {
 		return "redirect:/index";
 	}
         
-       
+         @GetMapping({ "/menu", "/menu" })
+	public String paginaMenu(Model modelo) {				 
+                return "menu";
+	}
+        
+         
+        
+         @GetMapping({ "/menulistado", "/menulistado" })
+	public String paginaMenuListado(Model modelo) {	
+            modelo.addAttribute("solicitudproductos", servicio.listarTodosLosSolicitudProducto());
+            return "menulistado";
+	}
 }

@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid data-bs-toggle">
           <img th:src="@{images/logo.jpg}"  alt="" class="mx-3" />
-          <a class="navbar-brand" th:href="@{/index}">Centauru's Bank</a>
+          <a class="navbar-brand" th:href="@{/login}">Centauru's Bank</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -41,7 +41,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto" id="r">
             
-              <a class="nav-link active" aria-current="page" th:href="@{/index}"
+              <a class="nav-link active" aria-current="page" th:href="@{/login}"
                 >Regresar
                 </a
               >
@@ -54,20 +54,16 @@
         <div class="row">
             <div class="card py-3">
                 <div class="card-title">
-                    <h3 class="text-center mt-3 ">Iniciar Sesion</h3>
-                </div>
-                <div class="card-body">
-                <form   class="border p-2" th:action="@{/login}" th:object="${iniciosesion}" method="POST">
-                    <h5 class="text-center bg-dark text-white m-2">Usuario</h5>
-                    <input class="form-control" type="text" name="usuario" id="" maxlength="20">
-                    <h5 class="text-center bg-dark text-white m-2">Contraseña</h5>
-                    <input class="form-control" type="password" name="clave" id="" maxlength="10">
-                    <button class="btn btn-primary container-fluid">Ingresar</button>
-                </form>
-                </div>
-                <div class="card-footer">
-                    
-                </div>
+                    <h1 class="text-center mt-3 ">Menu</h1>
+                    <br>
+                    <br>
+	  	    <h3 class="text-center mt-3 ">Listado de Solicitudes</h3>
+                    <form action="/menulistado">
+                      <button class="btn btn-primary container-fluid"  >Listado</button> 
+                    </form>        
+ 
+ 
+                </div>               
             </div>
         </div>
     </div>
