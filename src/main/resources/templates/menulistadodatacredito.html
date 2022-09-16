@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid data-bs-toggle">
           <img th:src="@{images/logo.jpg}"  alt="" class="mx-3" />
-          <a class="navbar-brand" th:href="@{/login}">Centauru's Bank</a>
+          <a class="navbar-brand" th:href="@{/menu}">Centauru's Bank</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -41,7 +41,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto" id="r">
             
-              <a class="nav-link active" aria-current="page" th:href="@{/login}"
+              <a class="nav-link active" aria-current="page" th:href="@{/menu}"
                 >Regresar
                 </a
               >
@@ -54,21 +54,33 @@
         <div class="row">
             <div class="card py-3">
                 <div class="card-title">
-                    <h1 class="text-center mt-3 ">Menu</h1>
+                    <h1 class="text-center mt-3 ">   </h1>
                     <br>
                     <br>
-	  	   
-                    <form action="/menulistado">
-                      <button class="btn btn-primary container-fluid"  >Listado de Solicitudes</button> 
-                    </form>        
+	  	    <h3 class="text-center mt-3 ">Lista Negra Data Crédito</h3>
                     <br>
-                    <form action="/menulistadoclientes">
-                      <button class="btn btn-primary container-fluid"  >Listado de Clientes</button> 
-                    </form>        
-                    <br>
-                    <form action="/menulistadodatacredito">
-                      <button class="btn btn-primary container-fluid"  >Lista Negra</button> 
-                    </form>                                              
+                     <a href="url">Nuevo</a>  
+                     <br>
+                    <table class="table table-striped table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>id</th>					
+                                        <th>Documento</th>
+                                        <th> </th>
+                                        
+			</thead>
+			<tbody>
+				<tr th:each="datacredito : ${datacreditos}">
+                                        <td th:text="${datacredito.id}">Id</td>										
+					<td th:text="${datacredito.tipo_documento} + ' '+${datacredito.documento} ">Documento</td> 
+					
+                                        <td>   
+                                           <a href="url">Eliminar</a>  
+                                        </td>
+				</tr>
+			</tbody>
+		</table>
+ 
  
                 </div>               
             </div>

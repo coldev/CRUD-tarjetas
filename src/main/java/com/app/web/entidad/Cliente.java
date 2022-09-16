@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "solicitudproductos")
-public class SolicitudProducto   {
+@Table(name = "clientes")
+public class Cliente   {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,17 +42,10 @@ public class SolicitudProducto   {
         @Column(name = "sexo",nullable = false,length = 1 )                
 	private String sexo;
         
-        @Column(name = "tiposolicitud",nullable = false,length = 2 )                
-	private String tipo_solicitud;
-        
-        @Column(name = "fechasolicitud",nullable = false,length = 12 )                
-	private String fecha_solicitud;
-        
-        @Column(name = "aprobado",nullable = false,length = 1 )                
-	private String aprobado;
+      
         
 	
-	public SolicitudProducto() {
+	public Cliente() {
 		
 	}
 
@@ -135,26 +128,5 @@ public class SolicitudProducto   {
     }
 
 
-    public String getTipo_solicitud() {
-        return tipo_solicitud;
-    }
-    public void setTipo_solicitud(String tipo_solicitud) {
-        this.tipo_solicitud = tipo_solicitud;
-    }
-
-
-    public String getFecha_solicitud() {
-        return fecha_solicitud;
-    }
-    public void setFecha_solicitud(String fecha_solicitud) {
-        this.fecha_solicitud = fecha_solicitud;
-    }
-    
-    
-    public String getAprobado() {
-        return aprobado;
-    }
-    public void setAprobado(String aprobado) {
-        this.aprobado = aprobado;
-    }
+   
 }

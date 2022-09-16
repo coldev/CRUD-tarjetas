@@ -67,6 +67,10 @@
                   <input class="form-control" type="text" value="" id="" name="nombre" th:field="*{nombre}" />
                 </div>
                 <div class="col col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                  <h6>Dirección</h6>
+                  <input class="form-control" type="text" value="" id="" name="direccion" th:field="*{direccion}" />
+                </div>  
+                <div class="col col-sm-12 col-md-4 col-lg-4 col-xl-4">
                   <h6>Correo Electrónico</h6>
                   <input class="form-control" type="email" value="" id="" name="email" th:field="*{email}" />
                 </div>
@@ -132,6 +136,7 @@ $( "#formulario" ).submit(function( event ) {
   valido= ValidarCampo( 'tipo_documento' , valido);
   valido= ValidarCampo( 'documento' , valido);
   valido= ValidarCampo( 'nombre' , valido);
+  valido= ValidarCampo( 'direccion' , valido);
   valido= ValidarCampo( 'email' , valido);
   valido= ValidarCampo( 'estado_civil' , valido);
   valido= ValidarCampo( 'fecha_nacimiento' , valido);

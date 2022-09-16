@@ -5,21 +5,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.app.web.entidad.SolicitudProducto;
 import com.app.web.entidad.InicioSesion;
+import com.app.web.repositorio.DatacreditoRepositorio;
+
 import com.app.web.servicio.SolicitudProductoServicio;
+import com.app.web.servicio.ClienteServicio;
+import com.app.web.servicio.DatacreditoServicio;
 
 @Controller
 public class SolicitudProductoControlador {
 
 	@Autowired
 	private SolicitudProductoServicio servicio;
+        
+        @Autowired
+        private ClienteServicio serviciocliente;
 
-
-                
+        
+        @Autowired
+        private DatacreditoServicio serviciodatacredito;
+       
 	 
         @GetMapping({ "/index", "/" })
 	public String paginaIndex(Model modelo) {				 
@@ -63,9 +71,25 @@ public class SolicitudProductoControlador {
 	}
         
         @PostMapping("/tarjetacredito")
-	public String guardartarjetacredito(@ModelAttribute("solicitudproducto") SolicitudProducto solicitud) {
-		servicio.guardarSolicitudProducto(solicitud);
-		return "redirect:/index";
+	public String guardartarjetacredito(@ModelAttribute("solicitudproducto") SolicitudProducto solicitud)
+        {      
+             //se verifica en datacredito los datos del cliente 
+            String tipodocumento=solicitud.getTipo_documento();
+            String documento= solicitud.getDocumento(); 
+             
+                           
+            if ( serviciodatacredito.BuscarListaNegra(tipodocumento,documento) )                 
+              return "redirect:/resultado?mensaje=solicitud+rechazada"; //error 
+
+            
+	    servicio.guardarSolicitudProducto(solicitud);                                                
+            return "redirect:/resultado?mensaje=pendiente+de+aprobaci%C3%B3n"; //exitoso   		
+	}
+        
+        @GetMapping({ "/resultado", "/resultado" })
+	public String paginaResultado(Model modelo ) {
+              
+                return "resultado";
 	}
         
         
@@ -109,4 +133,18 @@ public class SolicitudProductoControlador {
             modelo.addAttribute("solicitudproductos", servicio.listarTodosLosSolicitudProducto());
             return "menulistado";
 	}
+        
+        @GetMapping({ "/menulistadoclientes", "/menulistadoclientes" })
+	public String paginaMenuListadoCliente(Model modelo) {	
+            modelo.addAttribute("clientes", serviciocliente.listarTodosLosCliente());
+            return "menulistadoclientes";
+	}
+        
+        @GetMapping({ "/menulistadodatacredito", "/menulistadodatacredito" })
+	public String paginamenulistadodatacredito(Model modelo) {	
+            modelo.addAttribute("datacreditos", serviciodatacredito.listarTodosLosDatacredito());
+            return "menulistadodatacredito";
+	}
+        
+        
 }
