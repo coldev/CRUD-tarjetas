@@ -1,5 +1,6 @@
 package com.app.web.entidad;
 
+import java.util.Random;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name="solicitudproductos")
 @Table(name = "solicitudproductos")
 public class SolicitudProducto   {
 
@@ -50,6 +51,9 @@ public class SolicitudProducto   {
         
         @Column(name = "aprobado",nullable = false,length = 1 )                
 	private String aprobado;
+      
+        @Column(name = "numero",nullable = true,length = 15 )                
+	private String numero;
         
 	
 	public SolicitudProducto() {
@@ -154,7 +158,56 @@ public class SolicitudProducto   {
     public String getAprobado() {
         return aprobado;
     }
+    
     public void setAprobado(String aprobado) {
         this.aprobado = aprobado;
     }
+
+    public String getNumero() {
+        return numero;
+    }
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+    
+    public void GenerarNumeroProducto()
+    {
+        //genera un numero aleatorio para el producto
+        String Codigo= GenerarCadenaAleatoria(15,false,true);
+        this.setNumero(Codigo);
+    }
+    
+    
+    private String GenerarCadenaAleatoria(int Limite, boolean usarletras, boolean usarnumeros)
+    {       
+        int n= Limite; 
+       // chose a Character random from this String
+        String AlphaNumericString = "";
+        
+        if (usarletras)
+            AlphaNumericString+="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "abcdefghijklmnopqrstuvxyz";
+        
+        if (usarnumeros)
+                AlphaNumericString += "0123456789";
+                                      
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+  
+        for (int i = 0; i < n; i++) {
+  
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                = (int)(AlphaNumericString.length()
+                        * Math.random());
+  
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                          .charAt(index));
+        }
+  
+        return sb.toString();
+    }
+    
 }

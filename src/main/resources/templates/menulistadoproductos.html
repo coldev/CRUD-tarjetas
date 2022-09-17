@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid data-bs-toggle">
           <img th:src="@{images/logo.jpg}"  alt="" class="mx-3" />
-          <a class="navbar-brand" th:href="@{/menu}">Centauru's Bank</a>
+          <a class="navbar-brand" th:href="@{/menulistadoclientes}">Centauru's Bank</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -41,7 +41,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto" id="r">
             
-              <a class="nav-link active" aria-current="page" th:href="@{/menu}"
+              <a class="nav-link active" aria-current="page" th:href="@{/menulistadoclientes}"
                 >Regresar
                 </a
               >
@@ -57,33 +57,31 @@
                     <h1 class="text-center mt-3 ">   </h1>
                     <br>
                     <br>
-	  	    <h3 class="text-center mt-3 ">Listado de Clientes</h3>
+	  	    <h3 class="text-center mt-3 ">Listado de Productos</h3>
                     
                     <table class="table table-striped table-bordered">
 			<thead class="table-dark">
 				<tr>
-					<th>id</th>					
-                                        <th>Documento</th>
-                                        <th>Nombre</th>
-                                        <th>Dirección</th>
-                                        <th>Email</th>
-                                        <th>Celular</th>
-                                         <th>Productos</th>
-					
+					<th>id</th>	                                      
+					<th>Tipo Producto</th> 
+                                        <th>Fecha </th>                                         
+                                        <th>Número Producto</th> 
 			</thead>
 			<tbody>
-				<tr th:each="cliente : ${clientes}">
-                                        <td th:text="${cliente.id}">Id</td>										
-					<td th:text="${cliente.tipo_documento} + ' '+${cliente.documento} ">Documento</td> 
-					<td th:text="${cliente.nombre}">Nombre</td>
-                                        <td th:text="${cliente.direccion}">Dirección</td>
-                                        <td th:text="${cliente.email}">Email</td>
-                                        <td th:text="${cliente.celular}">Celular</td>
+				<tr th:each="solicitudproducto : ${solicitudproductos}">
+                                        <td th:text="${solicitudproducto.id}">Id</td>										
+					 
                                         
-                                        <td>   
-                                           <a  th:href="@{'/menulistadoproductos/' + ${cliente.tipo_documento}+'/'+${cliente.documento} }">Listar Productos</a>  
-                                        </td>
-                                        
+                                        <td  >     
+                                          <span th:if="${solicitudproducto.tipo_solicitud == 'CA'}">Cuenta Ahorros</span>  
+                                          <span th:if="${solicitudproducto.tipo_solicitud == 'CC'}">Cuenta Corriente</span>                                       
+                                          <span th:if="${solicitudproducto.tipo_solicitud == 'TC'}">Tarjeta Crédito</span> 
+                                          <span th:if="${solicitudproducto.tipo_solicitud == 'TM'}">Tarjeta Consumo</span> 
+                                        </td>     
+                                      
+                                         <td th:text="${solicitudproducto.fecha_solicitud}">Fecha</td>                             
+                                                                                 
+                                         <td th:text="${solicitudproducto.numero}">Numero</td>
 				</tr>
 			</tbody>
 		</table>

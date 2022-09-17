@@ -23,4 +23,6 @@ public interface SolicitudProductoServicio {
 	public SolicitudProducto actualizarSolicitudProducto(SolicitudProducto solicitud);
 	
 	public void eliminarSolicitudProducto(Long id);
+        
+        
 }

@@ -10,19 +10,20 @@ package com.app.web.servicio;
  */
 import java.util.List;
 
-import com.app.web.entidad.Datacredito;
+ 
+import com.app.web.entidad.Siebel;
 
-public interface DatacreditoServicio {
+public interface SiebelServicio {
 
-	public List<Datacredito> listarTodosLosDatacredito();
+	public List<Siebel> listarTodosLosSiebel();
 	
-	public Datacredito guardarDatacredito(Datacredito solicitud);
+	public Siebel guardarSiebel(Siebel solicitud);
 	
-	public Datacredito obtenerDatacreditoPorId(Long id);
+	public Siebel obtenerSiebelPorId(Long id);
 	
-	public Datacredito actualizarDatacredito(Datacredito solicitud);
+	public Siebel actualizarSiebel(Siebel solicitud);
 	
-	public void eliminarDatacredito(Long id);
+	public void eliminarSiebel(Long id);
         
         public  boolean BuscarListaNegra(String tipodocumento, String documento, String tiposolicitud);
 }

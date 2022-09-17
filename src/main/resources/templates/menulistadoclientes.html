@@ -81,7 +81,7 @@
                                         <td th:text="${cliente.celular}">Celular</td>
                                         
                                         <td>   
-                                           <a href="url">Listar Productos</a>  
+                                           <a  th:href="@{'/menulistadoproductos/' + ${cliente.tipo_documento}+'/'+${cliente.documento} }">Listar Productos</a>  
                                         </td>
                                         
 				</tr>

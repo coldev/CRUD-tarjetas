@@ -7,9 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name="datacreditos")
-@Table(name = "datacreditos")
-public class Datacredito   {
+@Entity(name="siebels")
+@Table(name = "siebels")
+public class Siebel   {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Datacredito   {
 	
      
 	
-	public Datacredito() {
+	public Siebel() {
 		
 	}
 

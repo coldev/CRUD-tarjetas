@@ -9,38 +9,37 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.web.entidad.Datacredito;
-import com.app.web.repositorio.DatacreditoRepositorio;
-import javax.persistence.EntityManager;
+import com.app.web.entidad.Siebel;
+import com.app.web.repositorio.SiebelRepositorio;
 
 @Service
-public class DatacreditoServicioImpl implements DatacreditoServicio {
+public class SiebelServicioImpl implements SiebelServicio {
       
 	@Autowired
-	private DatacreditoRepositorio repositorio;
+	private SiebelRepositorio repositorio;
 
 	@Override
-	public List<Datacredito> listarTodosLosDatacredito() {
+	public List<Siebel> listarTodosLosSiebel() {
 		return repositorio.findAll();
 	}
 
 	@Override
-	public Datacredito guardarDatacredito(Datacredito solicitud) {
+	public Siebel guardarSiebel(Siebel solicitud) {
 		return repositorio.save(solicitud);
 	}
 
 	@Override
-	public Datacredito obtenerDatacreditoPorId(Long id) {
+	public Siebel obtenerSiebelPorId(Long id) {
 		return repositorio.findById(id).get();
 	}
 
 	@Override
-	public Datacredito actualizarDatacredito(Datacredito solicitud) {
+	public Siebel actualizarSiebel(Siebel solicitud) {
 		return repositorio.save(solicitud);
 	}
 
 	@Override
-	public void eliminarDatacredito(Long id) {
+	public void eliminarSiebel(Long id) {
 		repositorio.deleteById(id);
 
 	}
@@ -48,7 +47,7 @@ public class DatacreditoServicioImpl implements DatacreditoServicio {
         @Override
 	public  boolean BuscarListaNegra(String tipodocumento, String documento, String tiposolicitud)
         {
-          List<Datacredito> lista=  repositorio.BuscarListaNegra(tipodocumento,documento );
+          List<Siebel> lista=  repositorio.BuscarListaNegra(tipodocumento,documento );
           
           if ( lista.isEmpty() )  //no esta reportado a datacredito
               return false;

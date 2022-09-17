@@ -14,7 +14,9 @@ import com.app.web.repositorio.SolicitudProductoRepositorio;
 
 @Service
 public class SolicitudProductoServicioImpl implements SolicitudProductoServicio {
-
+         private DatacreditoServicio serviciodatacredito;
+                     
+    
 	@Autowired
 	private SolicitudProductoRepositorio repositorio;
 
@@ -43,5 +45,8 @@ public class SolicitudProductoServicioImpl implements SolicitudProductoServicio 
 		repositorio.deleteById(id);
 
 	}
+        
+    
+      
 
 }

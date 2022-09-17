@@ -91,9 +91,9 @@
                                          <td th:text="${solicitudproducto.fecha_solicitud}">Fecha</td>
                                          
                                          <td>   
-                                           <a href="url">Aprobar</a>  
+                                           <a th:href="@{/menulistado/S/{id}(id=${solicitudproducto.id})}">Aprobar</a>  
                                            <a > &nbsp;&nbsp;&nbsp;   </a>  
-                                           <a href="url">Denegar</a>  
+                                           <a th:href="@{/menulistado/N/{id}(id=${solicitudproducto.id})}">Denegar</a>  
                                          </td>
 				</tr>
 			</tbody>
