@@ -15,14 +15,18 @@ import com.app.web.repositorio.SolicitudProductoRepositorio;
 
 import com.app.web.servicio.SolicitudProductoServicio;
 import com.app.web.servicio.ClienteServicio;
+import com.app.web.servicio.CorreoServicio;
 import com.app.web.servicio.DatacreditoServicio;
 import com.app.web.servicio.SiebelServicio;
+ 
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class SolicitudProductoControlador {
 
+        //servicios 
+    
 	@Autowired
 	private SolicitudProductoServicio servicio;
         
@@ -34,6 +38,11 @@ public class SolicitudProductoControlador {
         
         @Autowired
         private SiebelServicio serviciosiebel;
+        
+        @Autowired
+        private CorreoServicio serviciocorreo;
+        
+        //repositorios
         
         @Autowired
 	private SolicitudProductoRepositorio Solicitudrepositorio;
@@ -172,10 +181,13 @@ public class SolicitudProductoControlador {
                         (aprobado.equalsIgnoreCase("S") || aprobado.equalsIgnoreCase("N"))
                     )
                 {
-                   GrabarAprobacionProducto(solicitud, aprobado);
+                   solicitud.setAprobado(aprobado);
+                   String resultado= EnviarCorreos( solicitud);       
+                   
+                   GrabarAprobacionProducto(solicitud, aprobado);                                      
                 }                                  
                 
-		return "menulistado";
+		return "redirect:/menulistado";
 	}
 
         
@@ -183,6 +195,7 @@ public class SolicitudProductoControlador {
 	public String paginamenumenuhistorico(@PathVariable String tipodocumento,@PathVariable String documento, Model modelo ) 
         {	
             modelo.addAttribute("solicitudproductos", Solicitudrepositorio.ListarProductosCliente(tipodocumento , documento) ) ;
+            modelo.addAttribute("clientes", clienterepositorio.BuscarCliente(tipodocumento , documento) ) ;            
             return "menulistadoproductos";
 	}
         
@@ -192,7 +205,7 @@ public class SolicitudProductoControlador {
         
         //---------------------------------  metodos privados
         
-        private String ValidarCentralesdeRiesgo(SolicitudProducto solicitud )
+        private String ValidarCentralesdeRiesgo(SolicitudProducto solicitud )  
         {
             //se verifica en datacredito los datos del cliente 
             String tipodocumento=solicitud.getTipo_documento();
@@ -201,13 +214,23 @@ public class SolicitudProductoControlador {
             
             if (tiposolicitud.equalsIgnoreCase("TC") || tiposolicitud.equalsIgnoreCase("TM") ) //es credito o consumo
             {
+              boolean reportado=false;  
+                
                //valida centrales de riesgo datacredito
-              if ( serviciodatacredito.BuscarListaNegra(tipodocumento,documento,tiposolicitud ))                 
-                 return "redirect:/resultado?mensaje=solicitud+rechazada"; //error  
+              reportado=  serviciodatacredito.BuscarListaNegra(tipodocumento,documento,tiposolicitud );                                 
               
+              if (!reportado){
                //valida centrales de riesgo siebel
-              if ( serviciosiebel.BuscarListaNegra(tipodocumento,documento,tiposolicitud ))                 
-                 return "redirect:/resultado?mensaje=solicitud+rechazada"; //error                       
+              reportado= serviciosiebel.BuscarListaNegra(tipodocumento,documento,tiposolicitud );                                             
+              }
+              
+              if (reportado)
+              {
+                 solicitud.setAprobado("N");
+                 String resultado= EnviarCorreos( solicitud);                  
+                 
+                 return "redirect:/resultado?mensaje=solicitud+rechazada+"+ resultado; //error    
+              }
               
             }
                            
@@ -255,6 +278,24 @@ public class SolicitudProductoControlador {
             cliente.setSexo(solicitud.getSexo());                        
             
             serviciocliente.actualizarCliente(cliente); //crea o actualiza el cliente
+        }
+        
+        
+        private String EnviarCorreos(SolicitudProducto solicitud)
+        {
+            String Aprobado= solicitud.getAprobado();
+            
+            String MsgAprobado= " Aprobación rechazada.";
+            if (Aprobado.equalsIgnoreCase("S"))
+                MsgAprobado=" Aprobación Exitosa.";
+            
+            String Mensaje = solicitud.getTipo_documento()+" "+solicitud.getDocumento()+
+                         " ( Producto: " + solicitud.ObtenerNombreProducto() +                         
+                         MsgAprobado + " )";
+            String resultado= serviciocorreo.EnviarCorreo( solicitud.getEmail(), Mensaje);    
+            
+            return  resultado;
+            
         }
         
         

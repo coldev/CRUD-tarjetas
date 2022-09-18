@@ -210,4 +210,24 @@ public class SolicitudProducto   {
         return sb.toString();
     }
     
+    
+    
+    public String ObtenerNombreProducto()
+    {
+        String cadena = "";
+        if (this.getTipo_solicitud().equalsIgnoreCase("TC"))
+            cadena= "Tarjeta Crédito";
+        
+        if (this.getTipo_solicitud().equalsIgnoreCase("TM"))
+            cadena= "Tarjeta Consumo";
+        
+         if (this.getTipo_solicitud().equalsIgnoreCase("CA"))
+            cadena= "Cuenta Ahorros";
+         
+          if (this.getTipo_solicitud().equalsIgnoreCase("CC"))
+            cadena= "Cuenta Corriente";
+        
+        return cadena;
+    }
+    
 }

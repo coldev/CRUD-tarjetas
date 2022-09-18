@@ -1,7 +1,10 @@
 com\app\web\CrudSpringBootApplication.class
 com\app\web\servicio\ClienteServicio.class
+com\app\web\entidad\Siebel.class
 com\app\web\repositorio\SolicitudProductoRepositorio.class
+com\app\web\servicio\SiebelServicio.class
 com\app\web\servicio\SolicitudProductoServicioImpl.class
+com\app\web\servicio\CorreoServicioImpl.class
 com\app\web\controlador\SolicitudProductoControlador.class
 com\app\web\servicio\DatacreditoServicio.class
 com\app\web\servicio\DatacreditoServicioImpl.class
@@ -11,5 +14,8 @@ com\app\web\repositorio\DatacreditoRepositorio.class
 com\app\web\servicio\ClienteServicioImpl.class
 com\app\web\repositorio\ClienteRepositorio.class
 com\app\web\servicio\SolicitudProductoServicio.class
+com\app\web\repositorio\SiebelRepositorio.class
+com\app\web\servicio\CorreoServicio.class
 com\app\web\entidad\Datacredito.class
+com\app\web\servicio\SiebelServicioImpl.class
 com\app\web\entidad\SolicitudProducto.class
